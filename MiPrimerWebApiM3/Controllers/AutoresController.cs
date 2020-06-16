@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MiPrimerWebApiM3.Contexts;
 using MiPrimerWebApiM3.Entities;
 using System;
@@ -26,11 +27,11 @@ namespace MiPrimerWebApiM3.Controllers
             return context.Autores.ToList();
         }
 
-        
+
         [HttpGet("{id}", Name = "ObtenerAutor")]
         public ActionResult<Autor> Get(int id)
         {
-            var autor = context.Autores.FirstOrDefault(x=> x.Id  == id);
+            var autor = context.Autores.FirstOrDefault(_autor => _autor.Id == id);
 
             if (autor == null)
             {
@@ -42,7 +43,8 @@ namespace MiPrimerWebApiM3.Controllers
 
 
         [HttpPost]
-        public ActionResult Post([FromBody] Autor autor) {
+        public ActionResult Post([FromBody] Autor autor)
+        {
 
 
             // Esto no es necesario en asp.net core 2.1 en adelante
@@ -54,9 +56,47 @@ namespace MiPrimerWebApiM3.Controllers
             context.SaveChanges();
 
             return new CreatedAtRouteResult("ObtenerAutor", new { id = autor.Id }, autor);
-        
+
         }
-        
+
+        [HttpPut("{id}")]
+        public ActionResult Put(int id, [FromBody] Autor autor)
+        {
+            // Esto no es necesario en asp.net core 2.1 en adelante
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+
+            if (id != autor.Id)
+            {
+
+                return BadRequest();
+            }
+
+            context.Entry(autor).State = EntityState.Modified;
+            context.SaveChanges();
+            return Ok();
+
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<Autor> Delete(int id)
+        {
+
+            var autor = context.Autores.FirstOrDefault(_autor => _autor.Id.Equals(id));
+
+            if (autor == null)
+            {
+                return BadRequest();
+            }
+
+            context.Autores.Remove(autor);
+            context.SaveChanges();
+
+            return autor;
+
+        }
 
     }
 }
