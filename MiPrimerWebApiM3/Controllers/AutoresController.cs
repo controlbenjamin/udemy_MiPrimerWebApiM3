@@ -26,7 +26,8 @@ namespace MiPrimerWebApiM3.Controllers
             return context.Autores.ToList();
         }
 
-        [HttpGet("{id}")]
+        
+        [HttpGet("{id}", Name = "ObtenerAutor")]
         public ActionResult<Autor> Get(int id)
         {
             var autor = context.Autores.FirstOrDefault(x=> x.Id  == id);
@@ -39,6 +40,22 @@ namespace MiPrimerWebApiM3.Controllers
             return autor;
         }
 
+
+        [HttpPost]
+        public ActionResult Post([FromBody] Autor autor) {
+
+
+            // Esto no es necesario en asp.net core 2.1 en adelante
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+            context.Add(autor);
+            context.SaveChanges();
+
+            return new CreatedAtRouteResult("ObtenerAutor", new { id = autor.Id }, autor);
+        
+        }
         
 
     }
