@@ -1,0 +1,33 @@
+﻿Instalar:
+Entity Framework Core tools reference - .NET CLI
+dotnet tool install --global dotnet-ef
+
+Comprobar instalacion:
+dotnet ef
+
+
+En managed nuget package instalar
+Microsoft.EntityFrameworkCore.SqlServer --> si vas a trabajar con sqlserver
+Microsoft.EntityFrameworkCore.Tools --> este paquete es solo necesario para visual studio
+
+
+Por linea de comandos:
+
+dotnet tool install --global dotnet-ef --version 3.0.0
+
+En el dotnet cli: 
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+
+Para migrar datos
+Add-Migration Initial
+
+Si estas el DotNet CLI, puedes utilizar el comando:
+dotnet ef migrations add -n initial
+
+To undo this action, use Remove-Migration.
+
+
+Update-database
+
+Si estas el DotNet CLI, puedes utilizar el comando:
+dotnet ef database update
