@@ -24,14 +24,14 @@ namespace MiPrimerWebApiM3.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Autor>> Get()
         {
-            return context.Autores.ToList();
+            return context.Autores.Include(x => x.Libros).ToList();
         }
 
 
         [HttpGet("{id}", Name = "ObtenerAutor")]
         public ActionResult<Autor> Get(int id)
         {
-            var autor = context.Autores.FirstOrDefault(_autor => _autor.Id == id);
+            var autor = context.Autores.Include(x => x.Libros).FirstOrDefault(_autor => _autor.Id == id);
 
             if (autor == null)
             {

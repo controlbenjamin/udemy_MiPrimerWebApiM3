@@ -31,3 +31,11 @@ Update-database
 
 Si estas el DotNet CLI, puedes utilizar el comando:
 dotnet ef database update
+
+para volver a actualizar cuando se crea una tabla nueva
+Add-migration Libros
+update-database
+
+Si estas el DotNet CLI, puedes utilizar el comando:
+dotnet ef migrations add -n Libros
+dotnet ef database update

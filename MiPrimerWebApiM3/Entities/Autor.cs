@@ -13,5 +13,7 @@ namespace MiPrimerWebApiM3.Entities
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "El campo Nombre es requerido!")]
         public string Nombre { get; set; }
+
+        public List<Libro> Libros { get; set; }
     }
 }
